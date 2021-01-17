@@ -1,0 +1,83 @@
+
+<div class="jumbotron vertical-center">
+  <div class="container">
+    <div>
+      <div class="row">
+        <div class="col-6">
+          <div class="d-flex justify-content-center">
+            <mat-card style="height: 600px; width: 300px" class="example-card">
+              <mat-card-content>
+                <i
+                  style="width: 200px; height: 200px"
+                  class="fab fa-spotify"
+                ></i>
+              </mat-card-content>
+              <mat-card-actions>
+                <button
+                  mat-button
+                  *ngIf="!spotifyCode"
+                  (click)="getPlaylists()"
+                >
+                  Login
+                </button>
+                <button
+                  mat-button
+                  *ngIf="videos"
+                  (click)="createPlaylist()"
+                >
+                  Create Playlist
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+
+        </div>
+        <div class="loading-indicator" *ngIf="creatingPlaylist">
+          <mat-progress-spinner mode="indeterminate" color="accent"></mat-progress-spinner>
+        </div>
+
+        <div class="col-6">
+          <div class="d-flex justify-content-center">
+            <div *ngIf="videos == null">
+              <mat-card
+                style="height: 600px; width: 300px"
+                class="example-card"
+              >
+                <mat-card-content>
+                  <i
+                    style="width: 200px; height: 200px"
+                    class="fab fa-youtube"
+                  ></i>
+                </mat-card-content>
+                <mat-card-actions>
+                  <button mat-button *ngIf="spotifyCode" (click)="getLikedVideos()">
+                    Get Liked Videos
+                  </button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+          </div>
+          <mat-card *ngIf="videos" style="height: 600px" class="example-card">
+            <mat-card-content>
+              <mat-list style="margin: 10px">
+                <div mat-subheader>Videos</div>
+                <mat-list-item *ngFor="let video of videos?.items">
+                  <div mat-line style="margin-top: 5px">
+                    <img
+                      style="height: 60px; width: 60px"
+                      [src]="video?.snippet?.thumbnails?.high?.url"
+                      alt="Italian Trulli"
+                    />
+
+                    {{ video?.snippet?.title }}
+                  </div>
+                  <!-- <div mat-line> {{folder.updated | date}} </div> -->
+                </mat-list-item>
+              </mat-list>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
